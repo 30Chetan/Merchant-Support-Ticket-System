@@ -2,7 +2,8 @@
 
 A production-ready full-stack MERN application designed for merchants to create, view, and manage support inquiries efficiently. Developed specifically to match modern enterprise architectural standards.
 
-![Dashboard Preview](https://via.placeholder.com/1000x500.png?text=TicketIQ+Dashboard) *(Replace with actual screenshot)*
+
+<img width="1464" height="709" alt="Dashboard-preview" src="https://github.com/user-attachments/assets/35e774f5-d2e7-41fc-8cb8-da0dbe9c4df6" />
 
 ## 🚀 Objective
 To create a seamless, scalable, and beautifully designed full-stack application that handles the complete lifecycle of merchant support tickets, adhering strictly to technical requirements and professional UI/UX standards.
