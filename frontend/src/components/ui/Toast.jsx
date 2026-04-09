@@ -34,8 +34,8 @@ export const ToastRegion = ({ toasts, onDismiss }) => {
                         border shadow-xl text-sm font-medium cursor-pointer
                         animate-fade-up transition-all
                         ${t.type === 'success'
-                            ? 'bg-emerald-950/90 border-emerald-700/50 text-emerald-300'
-                            : 'bg-red-950/90 border-red-700/50 text-red-300'}
+                            ? 'bg-emerald-50 dark:bg-emerald-950/90 border-emerald-200 dark:border-emerald-700/50 text-emerald-800 dark:text-emerald-300'
+                            : 'bg-red-50 dark:bg-red-950/90 border-red-200 dark:border-red-700/50 text-red-800 dark:text-red-300'}
                     `}
                 >
                     <span className="text-base">{t.type === 'success' ? '✓' : '✕'}</span>

@@ -14,14 +14,14 @@ const STATUS_STYLES = {
 };
 
 const Badge = ({ children, styleMap, value }) => (
-    <span className={`px-2 py-0.5 text-[11px] font-semibold border rounded-full ${styleMap[value] || 'bg-zinc-800 text-zinc-400 border-zinc-700'}`}>
+    <span className={`px-2 py-0.5 text-[11px] font-semibold border rounded-full ${styleMap[value] || 'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border-zinc-200 dark:border-zinc-700'}`}>
         {children}
     </span>
 );
 
 /* ── Skeleton loading row ─────────────────────────────────── */
 const SkeletonRow = () => (
-    <tr className="border-b border-zinc-800/40">
+    <tr className="border-b border-zinc-200 dark:border-zinc-800/40">
         {[1,2,3,4,5].map(i => (
             <td key={i} className="px-4 py-4"><div className="skeleton h-3 rounded w-24" /></td>
         ))}
@@ -30,8 +30,8 @@ const SkeletonRow = () => (
 
 /* ── Filters Bar ─────────────────────────────────────────── */
 export const FiltersBar = ({ filters, onFilter, ticketCount }) => (
-    <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 border-b border-zinc-800/40">
-        <h2 className="text-sm font-semibold text-zinc-200">
+    <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 border-b border-zinc-200 dark:border-zinc-800/40 transition-colors">
+        <h2 className="text-sm font-semibold text-zinc-900 dark:text-zinc-200">
             Tickets
             <span className="ml-2 text-xs text-zinc-500 font-normal">{ticketCount} result{ticketCount !== 1 ? 's' : ''}</span>
         </h2>
@@ -67,7 +67,7 @@ export const FiltersBar = ({ filters, onFilter, ticketCount }) => (
             {(filters.status || filters.priority) && (
                 <button
                     onClick={() => { onFilter('status', ''); onFilter('priority', ''); }}
-                    className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors px-2 py-1 rounded-md hover:bg-zinc-800"
+                    className="text-xs text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300 transition-colors px-2 py-1 rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800"
                 >
                     Clear
                 </button>
@@ -83,13 +83,13 @@ const TicketTable = ({ tickets, loading, onStatusChange }) => {
     if (!loading && tickets.length === 0) {
         return (
             <div className="flex flex-col items-center justify-center py-20 text-center px-6">
-                <div className="w-12 h-12 rounded-2xl bg-zinc-800/60 flex items-center justify-center mb-4">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#52525b" strokeWidth="1.5" strokeLinecap="round">
+                <div className="w-12 h-12 rounded-2xl bg-zinc-100 dark:bg-zinc-800/60 flex items-center justify-center mb-4 transition-colors">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-zinc-500" strokeWidth="1.5" strokeLinecap="round">
                         <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
                     </svg>
                 </div>
-                <p className="text-sm font-medium text-zinc-400">No tickets found</p>
-                <p className="text-xs text-zinc-600 mt-1">No tickets match your current filters. Try clearing the filters or create a new ticket.</p>
+                <p className="text-sm font-medium text-zinc-700 dark:text-zinc-400">No tickets found</p>
+                <p className="text-xs text-zinc-500 dark:text-zinc-600 mt-1">No tickets match your current filters. Try clearing the filters or create a new ticket.</p>
             </div>
         );
     }
@@ -98,20 +98,20 @@ const TicketTable = ({ tickets, loading, onStatusChange }) => {
         <div className="overflow-x-auto">
             <table className="w-full text-left">
                 <thead>
-                    <tr className="border-b border-zinc-800/50">
+                    <tr className="border-b border-zinc-200 dark:border-zinc-800/50 transition-colors">
                         {['Subject', 'Priority', 'Status', 'Created', 'Update Status'].map((h) => (
                             <th key={h} className="px-4 py-3 text-[11px] font-semibold text-zinc-500 uppercase tracking-wider">{h}</th>
                         ))}
                     </tr>
                 </thead>
-                <tbody className="divide-y divide-zinc-800/30">
+                <tbody className="divide-y divide-zinc-200 dark:divide-zinc-800/30 transition-colors">
                     {loading
                         ? Array.from({ length: 4 }).map((_, i) => <SkeletonRow key={i} />)
                         : tickets.map((t) => (
-                            <tr key={t._id} className="hover:bg-zinc-800/20 transition-colors group">
+                            <tr key={t._id} className="hover:bg-zinc-50 dark:hover:bg-zinc-800/20 transition-colors group">
                                 {/* Subject */}
                                 <td className="px-4 py-4 max-w-xs">
-                                    <p className="text-sm font-medium text-zinc-100 group-hover:text-indigo-400 transition-colors truncate">{t.subject}</p>
+                                    <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors truncate">{t.subject}</p>
                                     <p className="text-xs text-zinc-500 mt-0.5 truncate">{t.message.slice(0, 65)}{t.message.length > 65 ? '…' : ''}</p>
                                 </td>
 

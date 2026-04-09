@@ -14,9 +14,24 @@ const App = () => {
     const { tickets, loading, error, fetchTickets, createTicket, updateStatus } = useTickets();
     const { toasts, toast, dismiss } = useToast();
 
+    // Theme state
+    const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
+
     const [filters,    setFilters]    = useState(INITIAL_FILTERS);
     const [allTickets, setAllTickets] = useState([]);
     const [modalOpen,  setModalOpen]  = useState(false);
+
+    /* Sync theme class to document */
+    useEffect(() => {
+        if (theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+        localStorage.setItem('theme', theme);
+    }, [theme]);
+
+    const toggleTheme = () => setTheme(theme === 'dark' ? 'light' : 'dark');
 
     /* Fetch filtered list whenever filters change */
     useEffect(() => {
@@ -57,7 +72,7 @@ const App = () => {
     };
 
     return (
-        <div className="flex h-screen bg-zinc-950 overflow-hidden">
+        <div className="flex h-screen bg-zinc-50 dark:bg-zinc-950 overflow-hidden transition-colors">
 
             {/* Toast notifications */}
             <ToastRegion toasts={toasts} onDismiss={dismiss} />
@@ -72,6 +87,8 @@ const App = () => {
                 <Header
                     ticketCount={tickets.length}
                     onCreateClick={() => setModalOpen(true)}
+                    theme={theme}
+                    toggleTheme={toggleTheme}
                 />
 
                 {/* Scrollable page body */}
@@ -81,7 +98,7 @@ const App = () => {
                     <StatsRow stats={stats} />
 
                     {/* Ticket table card */}
-                    <div className="rounded-xl border border-zinc-800/60 bg-zinc-900/30 overflow-hidden">
+                    <div className="rounded-xl border border-zinc-200 dark:border-zinc-800/60 bg-white dark:bg-zinc-900/30 overflow-hidden shadow-sm shadow-zinc-200/50 dark:shadow-none transition-colors">
 
                         <FiltersBar
                             filters={filters}

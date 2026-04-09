@@ -8,18 +8,18 @@ const STATS = (data) => [
 ];
 
 const StatCard = ({ label, value, description, accent, bar, pct }) => (
-    <div className="group relative rounded-xl border border-zinc-800/60 bg-zinc-900/50 px-5 py-4
-        hover:border-zinc-700/70 hover:bg-zinc-900/80 transition-all duration-200 overflow-hidden">
+    <div className="group relative rounded-xl border border-zinc-200 dark:border-zinc-800/60 bg-white dark:bg-zinc-900/50 px-5 py-4
+        hover:border-zinc-300 dark:hover:border-zinc-700/70 hover:bg-zinc-50 dark:hover:bg-zinc-900/80 transition-all duration-200 overflow-hidden shadow-sm dark:shadow-none">
         {/* Subtle top highlight */}
-        <div className="absolute top-0 left-4 right-4 h-px bg-gradient-to-r from-transparent via-white/[0.07] to-transparent" />
+        <div className="absolute top-0 left-4 right-4 h-px bg-gradient-to-r from-transparent via-zinc-200 dark:via-white/[0.07] to-transparent transition-colors" />
 
         <div className="flex items-start justify-between mb-3">
-            <span className="text-xs text-zinc-500 font-medium">{label}</span>
+            <span className="text-xs text-zinc-500 dark:text-zinc-400 font-medium">{label}</span>
             <span className={`text-2xl font-bold tracking-tight ${accent} tabular-nums`}>{value}</span>
         </div>
 
         {/* Progress bar */}
-        <div className="h-1 rounded-full bg-zinc-800 overflow-hidden mb-2">
+        <div className="h-1 rounded-full bg-zinc-100 dark:bg-zinc-800 overflow-hidden mb-2 transition-colors">
             <div
                 className={`h-full rounded-full ${bar} transition-all duration-700`}
                 style={{ width: `${pct}%` }}

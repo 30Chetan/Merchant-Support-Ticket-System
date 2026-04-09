@@ -17,11 +17,17 @@ html {
 
 body {
   margin: 0;
-  background-color: #09090b; /* zinc-950 */
-  color: #f4f4f5;            /* zinc-100 */
+  background-color: #f9fafb; /* gray-50 for light mode */
+  color: #18181b;            /* zinc-900 */
   font-family: 'Inter', system-ui, sans-serif;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dark body {
+  background-color: #09090b; /* zinc-950 */
+  color: #f4f4f5;            /* zinc-100 */
 }
 
 /* Custom scrollbar */

@@ -1,15 +1,15 @@
 /* Sidebar — persistent navigation + live stats */
 const Sidebar = ({ stats }) => {
     return (
-        <aside className="hidden md:flex flex-col w-56 border-r border-zinc-800/60 bg-zinc-950 shrink-0">
-            {/* Brand */}
-            <div className="flex items-center gap-2.5 px-4 h-14 border-b border-zinc-800/60">
-                <div className="w-6 h-6 rounded-md bg-indigo-600 flex items-center justify-center">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round">
-                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        <aside className="w-64 border-r border-zinc-200 dark:border-zinc-800/60 bg-zinc-50 dark:bg-zinc-950 flex flex-col shrink-0 transition-colors">
+            {/* Logo */}
+            <div className="flex items-center gap-3 px-6 h-14 border-b border-zinc-200 dark:border-zinc-800/60 transition-colors">
+                <div className="w-8 h-8 rounded-xl bg-indigo-600 flex items-center justify-center flex-shrink-0 shadow-inner">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
                     </svg>
                 </div>
-                <span className="text-sm font-semibold text-zinc-100 tracking-tight">TicketIQ</span>
+                <span className="font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">TicketIQ</span>
             </div>
 
             {/* Nav */}
