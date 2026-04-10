@@ -154,3 +154,13 @@ To deploy this project to the live web:
 - Set the **Framework Preset** to `Vite` and change the **Root Directory** to `frontend`.
 - *Wait:* In your frontend's `api.js` or `vite.config.js`, update the API base URL to target your live Render backend instead of `localhost`.
 - Deploy to generate your global URL.
+
+---
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feat/your-feature`
+3. Commit your changes: `git commit -m 'feat: add your feature'`
+4. Push to the branch: `git push origin feat/your-feature`
+5. Open a Pull Request
