@@ -9,52 +9,6 @@ A production-ready full-stack MERN application for merchants to create, view, an
 
 ---
 
-## 🚀 Run Locally
-
-### Backend
-
-```bash
-cd backend
-npm install
-npm run dev
-```
-
-### Frontend
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
----
-
-## ⚙️ Environment Variables
-
-Create a `.env` file in the `backend/` directory with the following variables:
-
-```env
-PORT=5001
-MONGO_URI=your_mongodb_connection_string
-```
-
----
-
-## 📡 API Request Example
-
-### Create a Ticket (`POST /api/tickets`)
-
-**Request Body:**
-```json
-{
-  "subject": "Payment failed",
-  "message": "Transaction not completed",
-  "priority": "High"
-}
-```
-
----
-
 ## 🚀 Objective
 To build a scalable and modular full-stack application that handles the lifecycle of merchant support tickets, adhering to professional UI/UX standards and enterprise backend architecture.
 
@@ -130,6 +84,52 @@ Support-Ticket-System/
 │   │   └── index.css         
 │   └── vite.config.js        
 └── README.md
+```
+
+---
+
+## 🏃‍♂️ Run Locally
+
+### Backend
+
+```bash
+cd backend
+npm install
+npm run dev
+```
+
+### Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+---
+
+## ⚙️ Environment Variables
+
+Create a `.env` file in the `backend/` directory with the following variables:
+
+```env
+PORT=5001
+MONGO_URI=your_mongodb_connection_string
+```
+
+---
+
+## 📡 API Request Example
+
+### Create a Ticket (`POST /api/tickets`)
+
+**Request Body:**
+```json
+{
+  "subject": "Payment failed",
+  "message": "Transaction not completed",
+  "priority": "High"
+}
 ```
 
 ---
