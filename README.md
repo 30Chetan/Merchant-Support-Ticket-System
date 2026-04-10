@@ -4,7 +4,8 @@ A production-ready full-stack MERN application for merchants to create, view, an
 
 ## 📸 Screenshots / Preview
 <!-- Placeholder for dashboard UI images -->
-![Dashboard Preview](https://via.placeholder.com/1000x500.png?text=TicketIQ+Dashboard)
+<img width="1464" height="709" alt="Dashboard-preview" src="https://github.com/user-attachments/assets/7830c2a8-952a-4498-83ad-f85f2723e26e" />
+
 
 ---
 
