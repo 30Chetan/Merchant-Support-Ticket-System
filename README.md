@@ -58,35 +58,110 @@ The application is driven by 3 tightly secured REST endpoints:
 
 ---
 
-## 🏃‍♂️ Getting Started (Running Locally)
+## 📂 Folder Structure
 
-### Prerequisites
-- Node.js installed (v18 and above recommended).
-- MongoDB installed locally (running on `mongodb://localhost:27017`) or access to an Atlas connection string.
+The project is divided cleanly into a Backend and Frontend to ensure total separation of concerns.
 
-### Step 1: Initialize the Backend
-Open a terminal and execute the following:
-```bash
-cd backend
-npm install
-# Ensure .env is set to your local mongodb: MONGO_URI=mongodb://localhost:27017/support-tickets
-npm run dev
+```text
+Support-Ticket-System/
+├── backend/                  # Node.js + Express API
+│   ├── config/               # Database configuration
+│   ├── controllers/          # Request handlers
+│   ├── middleware/           # Custom error handler
+│   ├── models/               # Mongoose schemas
+│   ├── routes/               # API endpoints setup
+│   ├── services/             # Core business logic
+│   ├── .env.example          # Template for backend environment variables
+│   └── server.js             # Main backend application entry point
+│
+├── frontend/                 # React + Vite Application
+│   ├── public/               # Static assets
+│   ├── src/                  
+│   │   ├── api/              # Axios/Fetch configurations
+│   │   ├── components/       # Reusable UI architecture (Sidebar, Header)
+│   │   │   ├── layout/       # Structural components
+│   │   │   ├── tickets/      # Ticket specific rendering (Table, Stats, Modal)
+│   │   │   └── ui/           # Generic raw components (Toast notifications)
+│   │   ├── hooks/            # Custom logic (useTickets, useToast)
+│   │   ├── services/         # API Service
+│   │   ├── App.jsx           # Main generic layout and state host
+│   │   └── index.css         # Tailwind v4 directives and CSS configuration
+│   └── vite.config.js        # Vite config including reverse proxy setup
+└── README.md
 ```
-*The backend server will spin up actively on `http://localhost:5001`.*
-
-### Step 2: Initialize the Frontend
-Open a **new** separate terminal and execute:
-```bash
-cd frontend
-npm install
-npm run dev
-```
-*The frontend React application will launch securely on `http://localhost:5173`.*
 
 ---
 
-## 🧪 Testing the Application
-1. **Navigate to `http://localhost:5173`** in your browser.
-2. Click **"New Ticket"** to verify the Express `POST` route.
-3. Once populated, use the targeted dropdown under the "Update Status" column to dynamically trigger a `PATCH` request.
-4. Utilize the top Action-bar dropdowns to filter the active ticket table through specific specific statuses natively processed via the `GET` route filters.
+## 🏃‍♂️ Installation & Running Locally
+
+To run this application, **you must open two separate terminal windows**—one specifically for your React frontend, and one specifically for your Node backend.
+
+### Prerequisites
+- Install **Node.js** (v18 or higher recommended).
+- Ensure you have **MongoDB** installed locally (running on `mongodb://localhost:27017`) OR have a MongoDB Atlas URL ready.
+
+---
+
+### Terminal 1: Setting up the Backend
+Open your first terminal window and execute the following commands:
+```bash
+# 1. Navigate into the backend directory
+cd backend
+
+# 2. Install all backend dependencies
+npm install
+
+# 3. Create your environment file
+cp .env.example .env
+
+# 4. Start the backend Node server using Nodemon
+npm run dev
+```
+> ✅ **Success:** The terminal should output that the server is successfully running on `http://localhost:5001` and connected to MongoDB. Do not close this terminal.
+
+---
+
+### Terminal 2: Setting up the Frontend
+Open a **new, second terminal window**, and ensure you start from the root of the project:
+```bash
+# 1. Navigate into the frontend directory
+cd frontend
+
+# 2. Install all React and Tailwind dependencies
+npm install
+
+# 3. Spin up the Vite development server
+npm run dev
+```
+> ✅ **Success:** The terminal should output that the React application is running at `http://localhost:5173`. 
+> You can now open your browser and navigate to **http://localhost:5173** to view and interact with the application.
+
+---
+
+## 🚀 Production Deployment Guide
+
+If you wish to deploy this project securely to the live web, here is the standard infrastructure approach:
+
+### 1. Database Deployment (MongoDB Atlas)
+- Create a free cluster on [MongoDB Atlas](https://www.mongodb.com/atlas).
+- Whitelist your IP addresses (or `0.0.0.0/0` for universal external server fetching).
+- Copy your unique connection URI.
+
+### 2. Backend Deployment (Render or Heroku)
+- Push your application to a GitHub repository.
+- Inside [Render](https://render.com), create a new **"Web Service"** and connect your GitHub repository.
+- Point the **Root Directory** to `backend`.
+- Set the **Build Command** to `npm install`.
+- Set the **Start Command** to `node server.js`.
+- Under Environment Variables, add:
+  - `PORT`: `5001`
+  - `MONGO_URI`: `*(Your MongoDB Atlas URI)*`
+- Render will yield a live URL (e.g., `https://your-api.onrender.com`).
+
+### 3. Frontend Deployment (Vercel or Netlify)
+- In [Vercel](https://vercel.com), add a new Project and import the exact same GitHub repository.
+- Set the **Framework Preset** to `Vite` and change the **Root Directory** to `frontend`.
+- *Crucial Step*: Open your frontend proxy logic inside `vite.config.js` or `api.js` and alter the base URL string to target your live Render API URL instead of `http://localhost:5001`.
+- Click **Deploy**. Vercel will bundle your React app and host the static files globally on their CDN.
+
+You now have a globally hosted MERN application!
