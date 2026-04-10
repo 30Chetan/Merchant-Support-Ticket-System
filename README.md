@@ -1,167 +1,162 @@
 # Merchant Support Ticket System
 
-A production-ready full-stack MERN application designed for merchants to create, view, and manage support inquiries efficiently. Developed specifically to match modern enterprise architectural standards.
+A production-ready full-stack MERN application for merchants to create, view, and manage support inquiries efficiently.
 
+## 📸 Screenshots / Preview
+<!-- Placeholder for dashboard UI images -->
+![Dashboard Preview](https://via.placeholder.com/1000x500.png?text=TicketIQ+Dashboard)
 
-<img width="1464" height="709" alt="Dashboard-preview" src="https://github.com/user-attachments/assets/35e774f5-d2e7-41fc-8cb8-da0dbe9c4df6" />
+---
+
+## 🏃‍♂️ Run Locally
+
+You will need two separate terminal windows to run the frontend and backend concurrently.
+
+### Prerequisites
+- Node.js (v18+)
+- MongoDB (Running locally on `mongodb://localhost:27017` or a MongoDB Atlas URI)
+
+### 1. Start the Backend
+```bash
+cd backend
+npm install
+npm run dev
+```
+*The backend server will run on `http://localhost:5001`.*
+
+### 2. Start the Frontend
+In a new terminal window:
+```bash
+cd frontend
+npm install
+npm run dev
+```
+*The React application will run on `http://localhost:5173`.*
+
+---
+
+## ⚙️ Environment Variables
+
+Create a `.env` file in the `backend/` directory with the following variables:
+
+```env
+PORT=5001
+MONGO_URI=your_mongodb_connection_string
+```
+
+---
+
+## 📡 API Request Example
+
+### Create a Ticket (`POST /api/tickets`)
+
+**Request Body:**
+```json
+{
+  "subject": "Payment failed",
+  "message": "Transaction not completed",
+  "priority": "High"
+}
+```
+
+---
 
 ## 🚀 Objective
-To create a seamless, scalable, and beautifully designed full-stack application that handles the complete lifecycle of merchant support tickets, adhering strictly to technical requirements and professional UI/UX standards.
+To build a scalable and modular full-stack application that handles the lifecycle of merchant support tickets, adhering to professional UI/UX standards and enterprise backend architecture.
 
 ---
 
 ## 💻 Technical Stack Overview
 
-### Backend Framework
-- **Node.js & Express.js:** Hand-tailored lightweight server handling API routing with extremely low latency.
-- **MongoDB & Mongoose:** Strict schema definitions ensuring data integrity before persistence.
+### Backend Structure
+- **Node.js & Express.js:** REST API handling application routing and asynchronous requests.
+- **MongoDB & Mongoose:** NoSQL database with strict schema validation for data integrity.
 
-### Frontend Framework
-- **React (Vite):** Lightning-fast HMR (Hot Module Replacement) and optimized production builds.
-- **Tailwind CSS v4:** Utility-first styling combined with `@theme` configurations to build custom, glass-morphic enterprise designs without polluting standard HTML elements.
-
----
-
-## 🏛️ Architectural Choices & Design Patterns
-
-I utilized a strictly **Modular Enterprise Structure** on both the frontend and the backend.
-
-### 1. Backend: The MVC + Service Layer Pattern
-Unlike basic Express apps where controllers handle everything, this backend isolates layers mathematically:
-* **Routes (`/routes`)**: Only defines endpoints (`POST`, `GET`, `PATCH`). Absolutely no logic lives here.
-* **Controllers (`/controllers`)**: Manages the HTTP layer. It parses the request `req.body` and sends the JSON `res.status`, acting as a clean bridge.
-* **Services (`/services`)**: The "Brain". All business logic and MongoDB `Mongoose` queries execute here. If we ever swap MongoDB for PostgreSQL, the Controllers remain untouched.
-* **Middleware (`/middleware`)**: Centralized global error handling ensuring crashes never leak stack traces into production.
-* **Models (`/models`)**: Built-in strict enum validations (`['NEW', 'INVESTIGATING', 'RESOLVED']` for Status, and `['Low', 'Medium', 'High']` for Priority).
-
-### 2. Frontend: Component-Driven SaaS Architecture
-To create a fluid, dashboard-like feel similar to professional enterprise suites (like Vercel or Linear):
-* **Custom Hooks (`/hooks/useTickets.js`)**: Encapsulates all side-effects and asynchronous fetch boundaries. Components shouldn't know *how* data is fetched, only *when*.
-* **API Service Abstraction (`/services/api.js`)**: All `fetch` calls are housed in one unified file. This allows effortless updates to headers or auth tokens universally.
-* **Vite API Proxying (`vite.config.js`)**: Instead of handling CORS headers manually on the Express server, Vite dynamically proxies frontend `/api` requests to `http://localhost:5001`. This strictly protects the backend from exposing origins in development, mirroring a production NGINX reverse-proxy setup perfectly.
+### Frontend Structure
+- **React (Vite):** Fast, component-driven UI library with optimized bundling.
+- **Tailwind CSS v4:** Utility-first CSS framework configured for a modern, responsive interface including dark mode support.
 
 ---
 
-## ⚙️ Core Features Implemented
+## 🏛️ Architectural Choices
 
-### 1. Robust API Development
-The application is driven by 3 tightly secured REST endpoints:
-- `POST /api/tickets`: Creates a newly instantiated Support Ticket. Requires a rigorous `subject` and `message`, and accepts a `priority` level.
-- `GET /api/tickets`: Fetches all tickets, dynamically sorting by date. Includes built-in server-side filtering via `?status=` and `?priority=` queries.
-- `PATCH /api/tickets/:id`: Targeted fast-updates exclusively for altering a ticket's procedural status (`NEW` → `INVESTIGATING` → `RESOLVED`).
+The project uses a standard **Modular Architecture** pattern.
 
-### 2. Premium Dashboard User Interface
-- **Slide-in Creation Modal:** Modern, animated form overlay for creating new inquiries without aggressively routing the user away from their dashboard context.
-- **Reactive Ticket List View:** A comprehensive, sleek table displaying `Subject`, `Priority`, `Status`, and neatly formatted `Creation Dates`.
-- **Dynamic Status Indicators:** Visual cues are hardcoded via CSS mappings to display vivid Red/Orange/Green semantic colors based purely on priority and status levels.
-- **Top-Level KPI Board:** A visually tracking stats layout summarizing the holistic state of all tickets across the system (Total, Awaiting Review, In Progress, Closed).
+### Backend: MVC + Service Pattern
+The backend separates concerns into distinct layers:
+* **Routes (`/routes`)**: Defines API endpoints (`POST`, `GET`, `PATCH`) and forwards requests to controllers.
+* **Controllers (`/controllers`)**: Manages the HTTP layer (request parsing, response formatting).
+* **Services (`/services`)**: Contains core business logic and database interactions.
+* **Middleware (`/middleware`)**: Handles global request errors centrally.
+* **Models (`/models`)**: Defines data schemas and enum validations (e.g., Status: `NEW`, `INVESTIGATING`, `RESOLVED`).
+
+### Frontend: Component-Driven Architecture
+* **Custom Hooks (`useTickets.js`)**: Encapsulates external side-effects and backend data fetching logic.
+* **API Service (`api.js`)**: Centralizes fetch calls, making it easier to manage headers and base URLs.
+* **Vite Proxy:** Uses Vite's proxy feature (`/api` routes to `http://localhost:5001`) to handle internal routing smoothly without manual CORS configuration during development.
+
+---
+
+## 🛠️ Core Features Implemented
+
+1. **Robust REST API:**
+   - `POST /api/tickets`: Creates a new ticket.
+   - `GET /api/tickets`: Fetches tickets with support for server-side filtering by status and priority.
+   - `PATCH /api/tickets/:id`: Updates an existing ticket's operational status.
+
+2. **Interactive Dashboard UI:**
+   - **Slide-in Modal:** Form interface for ticket creation.
+   - **Data Table:** Displays tickets with visual status indicators.
+   - **Real-time Statistics:** KPI cards summarizing total, open, and resolved tickets.
+   - **Theme Toggling:** Built-in light and dark mode toggling.
 
 ---
 
 ## 📂 Folder Structure
 
-The project is divided cleanly into a Backend and Frontend to ensure total separation of concerns.
-
 ```text
 Support-Ticket-System/
 ├── backend/                  # Node.js + Express API
-│   ├── config/               # Database configuration
-│   ├── controllers/          # Request handlers
-│   ├── middleware/           # Custom error handler
-│   ├── models/               # Mongoose schemas
-│   ├── routes/               # API endpoints setup
-│   ├── services/             # Core business logic
-│   ├── .env.example          # Template for backend environment variables
-│   └── server.js             # Main backend application entry point
+│   ├── config/               
+│   ├── controllers/          
+│   ├── middleware/           
+│   ├── models/               
+│   ├── routes/               
+│   ├── services/             
+│   ├── .env.example          
+│   └── server.js             
 │
 ├── frontend/                 # React + Vite Application
-│   ├── public/               # Static assets
+│   ├── public/               
 │   ├── src/                  
-│   │   ├── api/              # Axios/Fetch configurations
-│   │   ├── components/       # Reusable UI architecture (Sidebar, Header)
-│   │   │   ├── layout/       # Structural components
-│   │   │   ├── tickets/      # Ticket specific rendering (Table, Stats, Modal)
-│   │   │   └── ui/           # Generic raw components (Toast notifications)
-│   │   ├── hooks/            # Custom logic (useTickets, useToast)
+│   │   ├── components/       # Reusable UI (Sidebar, Table, Modals)
+│   │   ├── hooks/            # Custom logic 
 │   │   ├── services/         # API Service
-│   │   ├── App.jsx           # Main generic layout and state host
-│   │   └── index.css         # Tailwind v4 directives and CSS configuration
-│   └── vite.config.js        # Vite config including reverse proxy setup
+│   │   ├── App.jsx           
+│   │   └── index.css         
+│   └── vite.config.js        
 └── README.md
 ```
 
 ---
 
-## 🏃‍♂️ Installation & Running Locally
+## 🌐 Production Deployment Guide
 
-To run this application, **you must open two separate terminal windows**—one specifically for your React frontend, and one specifically for your Node backend.
-
-### Prerequisites
-- Install **Node.js** (v18 or higher recommended).
-- Ensure you have **MongoDB** installed locally (running on `mongodb://localhost:27017`) OR have a MongoDB Atlas URL ready.
-
----
-
-### Terminal 1: Setting up the Backend
-Open your first terminal window and execute the following commands:
-```bash
-# 1. Navigate into the backend directory
-cd backend
-
-# 2. Install all backend dependencies
-npm install
-
-# 3. Create your environment file
-cp .env.example .env
-
-# 4. Start the backend Node server using Nodemon
-npm run dev
-```
-> ✅ **Success:** The terminal should output that the server is successfully running on `http://localhost:5001` and connected to MongoDB. Do not close this terminal.
-
----
-
-### Terminal 2: Setting up the Frontend
-Open a **new, second terminal window**, and ensure you start from the root of the project:
-```bash
-# 1. Navigate into the frontend directory
-cd frontend
-
-# 2. Install all React and Tailwind dependencies
-npm install
-
-# 3. Spin up the Vite development server
-npm run dev
-```
-> ✅ **Success:** The terminal should output that the React application is running at `http://localhost:5173`. 
-> You can now open your browser and navigate to **http://localhost:5173** to view and interact with the application.
-
----
-
-## 🚀 Production Deployment Guide
-
-If you wish to deploy this project securely to the live web, here is the standard infrastructure approach:
+To deploy this project to the live web:
 
 ### 1. Database Deployment (MongoDB Atlas)
-- Create a free cluster on [MongoDB Atlas](https://www.mongodb.com/atlas).
-- Whitelist your IP addresses (or `0.0.0.0/0` for universal external server fetching).
+- Create a cluster on [MongoDB Atlas](https://www.mongodb.com/atlas).
+- Whitelist your IP (`0.0.0.0/0` for universal external fetching).
 - Copy your unique connection URI.
 
 ### 2. Backend Deployment (Render or Heroku)
-- Push your application to a GitHub repository.
-- Inside [Render](https://render.com), create a new **"Web Service"** and connect your GitHub repository.
-- Point the **Root Directory** to `backend`.
-- Set the **Build Command** to `npm install`.
-- Set the **Start Command** to `node server.js`.
-- Under Environment Variables, add:
-  - `PORT`: `5001`
-  - `MONGO_URI`: `*(Your MongoDB Atlas URI)*`
-- Render will yield a live URL (e.g., `https://your-api.onrender.com`).
+- Connect your GitHub repository as a new Web Service in [Render](https://render.com).
+- Set the **Root Directory** to `backend`.
+- Set **Build Command** to `npm install` and **Start Command** to `node server.js`.
+- Add `PORT` and `MONGO_URI` to your Render Environment Variables.
 
 ### 3. Frontend Deployment (Vercel or Netlify)
-- In [Vercel](https://vercel.com), add a new Project and import the exact same GitHub repository.
+- Import your repository to [Vercel](https://vercel.com).
 - Set the **Framework Preset** to `Vite` and change the **Root Directory** to `frontend`.
-- *Crucial Step*: Open your frontend proxy logic inside `vite.config.js` or `api.js` and alter the base URL string to target your live Render API URL instead of `http://localhost:5001`.
-- Click **Deploy**. Vercel will bundle your React app and host the static files globally on their CDN.
-
-You now have a globally hosted MERN application!
+- *Wait:* In your frontend's `api.js` or `vite.config.js`, update the API base URL to target your live Render backend instead of `localhost`.
+- Deploy to generate your global URL.
