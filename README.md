@@ -8,30 +8,23 @@ A production-ready full-stack MERN application for merchants to create, view, an
 
 ---
 
-## 🏃‍♂️ Run Locally
+## 🚀 Run Locally
 
-You will need two separate terminal windows to run the frontend and backend concurrently.
+### Backend
 
-### Prerequisites
-- Node.js (v18+)
-- MongoDB (Running locally on `mongodb://localhost:27017` or a MongoDB Atlas URI)
-
-### 1. Start the Backend
 ```bash
 cd backend
 npm install
 npm run dev
 ```
-*The backend server will run on `http://localhost:5001`.*
 
-### 2. Start the Frontend
-In a new terminal window:
+### Frontend
+
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
-*The React application will run on `http://localhost:5173`.*
 
 ---
 
@@ -69,7 +62,7 @@ To build a scalable and modular full-stack application that handles the lifecycl
 ## 💻 Technical Stack Overview
 
 ### Backend Structure
-- **Node.js & Express.js:** REST API handling application routing and asynchronous requests.
+- **Node.js & Express.js:** Lightweight Express server for scalable API routing and middleware handling.
 - **MongoDB & Mongoose:** NoSQL database with strict schema validation for data integrity.
 
 ### Frontend Structure
@@ -83,7 +76,7 @@ To build a scalable and modular full-stack application that handles the lifecycl
 The project uses a standard **Modular Architecture** pattern.
 
 ### Backend: MVC + Service Pattern
-The backend separates concerns into distinct layers:
+The backend separates responsibilities across different layers:
 * **Routes (`/routes`)**: Defines API endpoints (`POST`, `GET`, `PATCH`) and forwards requests to controllers.
 * **Controllers (`/controllers`)**: Manages the HTTP layer (request parsing, response formatting).
 * **Services (`/services`)**: Contains core business logic and database interactions.
@@ -104,7 +97,7 @@ The backend separates concerns into distinct layers:
    - `GET /api/tickets`: Fetches tickets with support for server-side filtering by status and priority.
    - `PATCH /api/tickets/:id`: Updates an existing ticket's operational status.
 
-2. **Interactive Dashboard UI:**
+2. **Dashboard User Interface:**
    - **Slide-in Modal:** Form interface for ticket creation.
    - **Data Table:** Displays tickets with visual status indicators.
    - **Real-time Statistics:** KPI cards summarizing total, open, and resolved tickets.
